@@ -1,12 +1,13 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { ds } from "@/lib/design-tokens";
 import { cn } from "@/lib/utils";
 
 // Componente para renderizar ícones customizados
 const CustomIcon = ({ name, className }: { name: string; className?: string }) => {
-  const icons: Record<string, JSX.Element> = {
+  const icons: Record<string, React.ReactElement> = {
     "Photoshop": (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
         <path d="M12.5 0C5.596 0 0 5.596 0 12.5S5.596 25 12.5 25 25 19.404 25 12.5 19.404 0 12.5 0zm0 23C6.71 23 2 18.29 2 12.5S6.71 2 12.5 2 23 6.71 23 12.5 18.29 23 12.5 23z" fill="#31A8FF"/>

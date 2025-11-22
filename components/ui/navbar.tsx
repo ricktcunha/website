@@ -68,7 +68,7 @@ export function Navbar() {
             scroll={false}
             onClick={(e) => {
               // Handle anchor links with smooth scroll
-              if (item.href.includes('#')) {
+              if (typeof window !== 'undefined' && item.href.includes('#')) {
                 const hash = item.href.split('#')[1];
                 
                 // If we're on the home page, scroll smoothly

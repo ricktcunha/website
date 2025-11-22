@@ -13,7 +13,9 @@ interface SitePreviewProps {
 
 export function SitePreview({ siteUrl, siteImage, title, description }: SitePreviewProps) {
   const handleClick = () => {
-    window.open(siteUrl, "_blank", "noopener,noreferrer");
+    if (typeof window !== 'undefined') {
+      window.open(siteUrl, "_blank", "noopener,noreferrer");
+    }
   };
 
   return (

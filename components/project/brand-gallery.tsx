@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -32,7 +32,9 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
   };
 
   // Keyboard navigation
-  useState(() => {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!lightboxOpen) return;
       if (e.key === "Escape") closeLightbox();
@@ -42,7 +44,7 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  });
+  }, [lightboxOpen]);
 
   return (
     <>

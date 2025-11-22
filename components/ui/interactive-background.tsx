@@ -26,7 +26,7 @@ export const InteractiveBackground = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
   const { theme } = useTheme();
-  
+
   // Configuration
   const particleColor = theme === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)";
   const lineColor = theme === "dark" ? "rgba(255, 255, 255, 0.15)" : "rgba(0, 0, 0, 0.15)";
@@ -51,7 +51,8 @@ export const InteractiveBackground = ({
   }, []);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
+    if (!canvasRef.current || !containerRef.current) return;
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -59,15 +60,32 @@ export const InteractiveBackground = ({
     let particles: Particle[] = [];
     let animationFrameId: number;
     let mouse = { x: -1000, y: -1000 };
+    let isVisible = true;
 
-    // Initialize Particles
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    // Intersection Observer to pause when not visible
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0 }
+    );
+    observer.observe(containerRef.current);
+
+    // Initialize Particles with responsive count
     const initParticles = () => {
       particles = [];
-      for (let i = 0; i < particleCount; i++) {
+      const isMobile = window.innerWidth < 768;
+      const count = isMobile ? 30 : particleCount; // Reduce count on mobile
+
+      for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          dx: (Math.random() - 0.5) * 0.5, // Slow movement
+          dx: (Math.random() - 0.5) * 0.5,
           dy: (Math.random() - 0.5) * 0.5,
           size: Math.random() * 2 + 1,
           color: particleColor,
@@ -78,37 +96,35 @@ export const InteractiveBackground = ({
     initParticles();
 
     const animate = () => {
+      if (!isVisible) {
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Update and draw particles
       particles.forEach((p, i) => {
-        // Move
         p.x += p.dx;
         p.y += p.dy;
 
-        // Bounce off walls
         if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
         if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
 
-        // Mouse Interaction (Repel/Attract) - subtle attraction
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < mouseDistance) {
-           const force = (mouseDistance - dist) / mouseDistance;
-           // Slight attraction to mouse
-           p.x += dx * force * 0.02; 
-           p.y += dy * force * 0.02;
+          const force = (mouseDistance - dist) / mouseDistance;
+          p.x += dx * force * 0.02;
+          p.y += dy * force * 0.02;
         }
 
-        // Draw Particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
         ctx.fill();
 
-        // Draw Connections
         for (let j = i; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
@@ -142,20 +158,20 @@ export const InteractiveBackground = ({
       mouse.y = -1000;
     };
 
-    // We attach to container for mouse events
     if (containerRef.current) {
-        containerRef.current.addEventListener("mousemove", handleMouseMove as any);
-        containerRef.current.addEventListener("mouseleave", handleMouseLeave);
+      containerRef.current.addEventListener("mousemove", handleMouseMove as any);
+      containerRef.current.addEventListener("mouseleave", handleMouseLeave);
     }
 
     return () => {
       cancelAnimationFrame(animationFrameId);
-       if (containerRef.current) {
+      observer.disconnect();
+      if (containerRef.current) {
         containerRef.current.removeEventListener("mousemove", handleMouseMove as any);
         containerRef.current.removeEventListener("mouseleave", handleMouseLeave);
-    }
+      }
     };
-  }, [size, theme, lineColor, particleColor]); // Re-init on size/theme change
+  }, [size, theme, lineColor, particleColor]);
 
   return (
     <div
@@ -169,10 +185,10 @@ export const InteractiveBackground = ({
         ref={canvasRef}
         className={cn("absolute inset-0 z-0 block", className)}
       />
-      
+
       {/* Subtle Gradient Overlay to soften the edges */}
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950 opacity-80 pointer-events-none" />
-      
+
       <div className="relative z-10 w-full h-full pointer-events-none [&>*]:pointer-events-auto">
         {children}
       </div>

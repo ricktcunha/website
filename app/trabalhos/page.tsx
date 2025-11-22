@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { projects, Project } from "@/lib/projects-data";
-import { RainbowButton } from "@/components/ui/rainbow-button";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { ArrowUpRight, ArrowLeft } from "lucide-react";
+import { projects } from "@/lib/projects-data";
+import { Navbar } from "@/components/ui/navbar";
+import { Footer } from "@/components/ui/footer";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
 
@@ -16,7 +16,7 @@ const tabs = [
   { id: "branding", label: "BRANDING" },
 ];
 
-export function Portfolio() {
+export default function TrabalhosPag() {
   const [activeTab, setActiveTab] = useState("all");
 
   const filteredProjects = projects.filter((project) => {
@@ -24,66 +24,77 @@ export function Portfolio() {
     if (activeTab === "websites") return project.category === "Desenvolvedor Front-End";
     if (activeTab === "branding") return project.category === "Design de Marcas" || project.category === "Designer Gráfico";
     return true;
-  }).slice(0, 6); // Show only 6 featured projects as requested
+  });
 
   return (
-    <section id="portfolio" className="py-32 bg-black text-white">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-black text-white pt-32 pb-24">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
-        {/* Header with Tabs */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-          <div>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-purple-500 font-medium tracking-widest text-xs uppercase mb-4 block"
-            >
-              Projetos Selecionados
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-normal text-white mb-6 tracking-tight"
-            >
-              Selected <span className="text-purple-400 font-serif italic">Works</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-zinc-500 text-lg max-w-md"
-            >
-              Visual storytelling through code and design.
-            </motion.p>
-          </div>
+        {/* Header */}
+        <div className="mb-20">
+          <Link
+            href="/#portfolio"
+            className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-12 group"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            Back to Home
+          </Link>
 
-          <div className="flex gap-8 mb-2">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`text-xs font-medium tracking-widest uppercase transition-colors relative pb-2 ${activeTab === tab.id ? "text-white" : "text-zinc-600 hover:text-zinc-400"
-                  }`}
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+            <div>
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-purple-500 font-medium tracking-widest text-xs uppercase mb-4 block"
               >
-                {tab.label}
-                {activeTab === tab.id && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute bottom-0 left-0 w-full h-[1px] bg-white"
-                  />
-                )}
-              </button>
-            ))}
+                Portfolio Completo
+              </motion.span>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-5xl md:text-7xl font-normal text-white mb-6 tracking-tight"
+              >
+                All <span className="text-purple-400 font-serif italic">Projects</span>
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-zinc-500 text-lg max-w-md"
+              >
+                Explore minha coleção completa de projetos de design de marcas,
+                desenvolvimento front-end e design gráfico.
+              </motion.p>
+            </div>
+
+            <div className="flex gap-4 md:gap-8 mb-2 flex-wrap">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`text-xs font-medium tracking-widest uppercase transition-colors relative pb-2 ${activeTab === tab.id ? "text-white" : "text-zinc-600 hover:text-zinc-400"
+                    }`}
+                >
+                  {tab.label}
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute bottom-0 left-0 w-full h-[1px] bg-white"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Projects Stack */}
+        {/* Projects Grid */}
         <motion.div
           layout
-          className="flex flex-col gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
@@ -103,12 +114,12 @@ export function Portfolio() {
                 <Link href={`/trabalhos/${project.slug}`} className="block group relative">
                   <div className="relative h-[400px] md:h-[500px] w-full bg-black border border-white/10 rounded-3xl transition-all duration-700 ease-out overflow-hidden group-hover:bg-[#0a1f1c] group-hover:border-emerald-900/30">
 
-                    {/* Big Number Background - Always visible but subtle */}
+                    {/* Big Number Background */}
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] md:text-[20rem] font-bold text-white/[0.03] pointer-events-none select-none transition-opacity duration-500 group-hover:text-white/[0.05]">
                       {index + 1}
                     </div>
 
-                    {/* Content Container - Hidden by default, revealed on hover */}
+                    {/* Content Container */}
                     <div className="absolute inset-0 p-8 md:p-16 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 group-hover:translate-y-0 translate-y-4">
 
                       {/* Top Info */}
@@ -153,19 +164,17 @@ export function Portfolio() {
           </AnimatePresence>
         </motion.div>
 
-        {/* View All Button */}
-        <div className="mt-32 flex justify-center">
-          <ShimmerButton className="shadow-2xl px-8 py-4 h-auto rounded-full">
-            <Link
-              href="/trabalhos"
-              className="flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-white group-hover:text-black transition-colors duration-500"
-            >
-              View All Projects
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-500" />
-            </Link>
-          </ShimmerButton>
-        </div>
+        {/* Empty State */}
+        {filteredProjects.length === 0 && (
+          <div className="text-center py-32">
+            <p className="text-zinc-500 text-lg">
+              Nenhum projeto encontrado nesta categoria.
+            </p>
+          </div>
+        )}
       </div>
-    </section>
+      </main>
+      <Footer />
+    </>
   );
 }

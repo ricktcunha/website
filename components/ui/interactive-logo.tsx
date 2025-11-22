@@ -2,10 +2,15 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import KUTE from "kute.js";
+import { motion } from "framer-motion";
 
 export function InteractiveLogo() {
   const svgRef = useRef<SVGSVGElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const rippleIdRef = useRef(0);
   const tweensRef = useRef<any[]>([]);
 
   useEffect(() => {
@@ -121,11 +126,56 @@ export function InteractiveLogo() {
     }
   }, [isHovered]);
 
+  // Parallax effect - follow mouse movement
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const x = ((e.clientX - centerX) / (rect.width / 2)) * 20;
+    const y = ((e.clientY - centerY) / (rect.height / 2)) * 20;
+
+    setMousePosition({ x, y });
+  };
+
+  // Reset parallax when not hovered
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setMousePosition({ x: 0, y: 0 });
+  };
+
+  // Ripple effect on click
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const newRipple = {
+      id: rippleIdRef.current++,
+      x,
+      y,
+    };
+
+    setRipples((prev) => [...prev, newRipple]);
+
+    // Remove ripple after animation
+    setTimeout(() => {
+      setRipples((prev) => prev.filter((ripple) => ripple.id !== newRipple.id));
+    }, 1000);
+  };
+
   return (
     <div
+      ref={containerRef}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative cursor-pointer group"
+      onMouseLeave={handleMouseLeave}
+      onMouseMove={handleMouseMove}
+      onClick={handleClick}
+      className="relative cursor-pointer group overflow-visible"
     >
       {/* Glow Background */}
       <div
@@ -133,8 +183,19 @@ export function InteractiveLogo() {
         style={{ opacity: isHovered ? 0.4 : 0 }}
       />
 
-      {/* SVG Logo */}
-      <div className="relative">
+      {/* SVG Logo with Parallax */}
+      <motion.div
+        className="relative"
+        style={{
+          x: mousePosition.x,
+          y: mousePosition.y,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 200,
+          damping: 20,
+        }}
+      >
         <svg
           ref={svgRef}
           width="280"
@@ -142,7 +203,7 @@ export function InteractiveLogo() {
           viewBox="0 0 67.55 67.88"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="drop-shadow-2xl"
+          className="drop-shadow-2xl w-48 h-48 md:w-64 md:h-64 lg:w-[280px] lg:h-[280px]"
         >
           <defs>
             <linearGradient id="gradient-k" x1="37.74" y1="51.56" x2="52.97" y2="51.56" gradientUnits="userSpaceOnUse">
@@ -208,6 +269,35 @@ export function InteractiveLogo() {
             ))}
           </div>
         )}
+      </motion.div>
+
+      {/* Ripple Effects */}
+      <div className="absolute inset-0 pointer-events-none overflow-visible z-20" style={{ width: '100%', height: '100%' }}>
+        {ripples.map((ripple) => (
+          <motion.div
+            key={ripple.id}
+            className="absolute rounded-full border-4 border-purple-400 shadow-lg shadow-purple-400/50"
+            style={{
+              left: ripple.x,
+              top: ripple.y,
+              transform: 'translate(-50%, -50%)',
+            }}
+            initial={{
+              width: 0,
+              height: 0,
+              opacity: 0.9,
+            }}
+            animate={{
+              width: 600,
+              height: 600,
+              opacity: 0,
+            }}
+            transition={{
+              duration: 1,
+              ease: "easeOut",
+            }}
+          />
+        ))}
       </div>
     </div>
   );

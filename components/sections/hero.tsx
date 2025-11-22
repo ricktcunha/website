@@ -6,10 +6,11 @@ import { InteractiveBackground } from "@/components/ui/interactive-background";
 import { InteractiveLogo } from "@/components/ui/interactive-logo";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-visible">
       <InteractiveBackground>
         <div className="w-full h-full flex items-center justify-center relative z-20 px-6 py-32">
           <div className={cn(
@@ -17,10 +18,10 @@ export function Hero() {
             ds.spacing.containerMaxWidth
           )}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-              
+
               {/* Coluna Esquerda - Conteúdo */}
               <div className="max-w-3xl">
-              
+
                 {/* Badge de Status */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -79,15 +80,15 @@ export function Hero() {
                   transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   className="flex flex-col sm:flex-row items-start gap-4"
                 >
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-white text-black rounded-full text-sm font-medium hover:bg-zinc-200 transition-colors group"
+                  <RainbowButton
+                    className="rounded-full px-8 py-4 h-auto text-sm font-medium group"
+                    onClick={() => window.location.href = "#contact"}
                   >
                     <span>Iniciar Projeto</span>
                     <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
-                  </a>
+                  </RainbowButton>
 
                   <a
                     href="#portfolio"

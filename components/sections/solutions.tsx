@@ -28,11 +28,8 @@ const solutions = [
 
 export function Solutions() {
   return (
-    <section id="solutions" className="py-24 md:py-32 px-6 relative overflow-hidden">
-      {/* Subtler Background Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10" />
-
-      <div className={cn("container mx-auto", ds.spacing.containerMaxWidth)}>
+    <section id="solutions" className="py-24 md:py-32 px-6 bg-black/20">
+      <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
         <div className="mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -73,7 +70,7 @@ function SolutionCard({ solution, index }: { solution: any; index: number }) {
       <div className="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:text-purple-300 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all duration-300 mb-8">
         <solution.icon size={24} />
       </div>
-      
+
       <h3 className="text-2xl font-light mb-4 text-white transition-colors">{solution.title}</h3>
       <p className="text-lg text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors font-light">
         {solution.description}

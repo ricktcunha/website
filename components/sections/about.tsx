@@ -8,36 +8,34 @@ import { cn } from "@/lib/utils";
 export function About() {
   return (
     <section id="about" className="py-24 md:py-32 px-6 bg-black/20">
-      <div className={cn("container mx-auto", ds.spacing.containerMaxWidth)}>
-        <div className="grid md:grid-cols-[400px_1fr] gap-12 md:gap-20 items-center">
+      <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
+        <div className="grid md:grid-cols-[400px_1fr] gap-12 md:gap-20 items-start">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative h-full"
           >
-            <div 
-              className="aspect-[3/4] w-full relative rounded-xl group photo-animated-stroke"
-              style={{
-                padding: '3px',
-                background: 'linear-gradient(#000000, #000000) padding-box, linear-gradient(45deg, #ff6f61, #ff7f71, #9f6fff, #7f5fff, #6f61ff, #6f8fff, #61cfff, #61ff9f, #61ff7f, #61ff6f, #6fff8f, #7fff9f, #6f8fff, #6f61ff, #7f5fff, #9f6fff, #ff6f61) border-box',
-                WebkitBackgroundClip: 'padding-box, border-box',
-                backgroundClip: 'padding-box, border-box',
-                backgroundSize: '500% 500%',
-                border: '1px solid transparent',
-                animation: 'photo-stroke-animate 10s cubic-bezier(0.4, 0, 0.2, 1) infinite',
-              } as React.CSSProperties}
-            >
-              <div className="w-full h-full relative rounded-[calc(0.75rem-3px)] overflow-hidden bg-black">
-                <Image
-                  src="/rick-avatar.png"
-                  alt="Rick Cunha"
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, 400px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-purple-900/10 to-transparent opacity-60" />
+            <div className="h-full w-full relative rounded-xl group animated-stroke-border">
+              <div className="w-full h-full relative rounded-[calc(0.75rem-2px)] overflow-hidden bg-black">
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    ease: [0.22, 1, 0.36, 1] 
+                  }}
+                  className="w-full h-full relative"
+                >
+                  <Image
+                    src="/rick-avatar.png"
+                    alt="Rick Cunha"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 400px"
+                  />
+                </motion.div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-purple-900/10 to-transparent opacity-60 pointer-events-none" />
               </div>
             </div>
           </motion.div>
@@ -62,13 +60,13 @@ export function About() {
               </p>
             </div>
 
-            <div className="flex gap-16 mt-16 border-t border-purple-500/10 pt-10">
+            <div className="flex gap-8 md:gap-16 mt-12 md:mt-16 border-t border-purple-500/10 pt-8 md:pt-10">
               <div>
-                <h3 className="text-5xl font-extralight text-white mb-2">05+</h3>
+                <h3 className="text-4xl md:text-5xl font-extralight text-white mb-2">05+</h3>
                 <p className="text-xs text-purple-500/80 uppercase tracking-[0.2em] font-medium">Anos</p>
               </div>
               <div>
-                <h3 className="text-5xl font-extralight text-white mb-2">50+</h3>
+                <h3 className="text-4xl md:text-5xl font-extralight text-white mb-2">50+</h3>
                 <p className="text-xs text-purple-500/80 uppercase tracking-[0.2em] font-medium">Projetos</p>
               </div>
             </div>

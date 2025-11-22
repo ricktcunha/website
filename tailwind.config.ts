@@ -26,7 +26,7 @@ const config: Config = {
         "blue-500": "#3b82f6",
         "indigo-300": "#a5b4fc",
         "violet-200": "#ddd6fe",
-        
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -97,6 +97,39 @@ const config: Config = {
           "90%": { opacity: "1" },
           "100%": { transform: "translateY(-100px) translateX(20px)", opacity: "0" },
         },
+        blob: {
+          "0%": { transform: "translate(0px, 0px) scale(1)" },
+          "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+          "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+          "100%": { transform: "translate(0px, 0px) scale(1)" },
+        },
+        "photo-stroke-animate": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "100%": { backgroundPosition: "400% 50%" },
+        },
+        rainbow: {
+          "0%": { "background-position": "0%" },
+          "100%": { "background-position": "200%" },
+        },
+        "shimmer-slide": {
+          to: {
+            transform: "translate(calc(100cqw - 100%), 0)",
+          },
+        },
+        "spin-around": {
+          "0%": {
+            transform: "translateZ(0) rotate(0)",
+          },
+          "15%, 35%": {
+            transform: "translateZ(0) rotate(90deg)",
+          },
+          "65%, 85%": {
+            transform: "translateZ(0) rotate(270deg)",
+          },
+          "100%": {
+            transform: "translateZ(0) rotate(360deg)",
+          },
+        },
       },
       animation: {
         aurora: "aurora 60s linear infinite",
@@ -105,6 +138,11 @@ const config: Config = {
         shimmer: "shimmer 3s linear infinite",
         "spin-slow": "spin-slow 8s linear infinite",
         float: "float 3s ease-in-out infinite",
+        blob: "blob 10s infinite",
+        "photo-stroke-animate": "photo-stroke-animate 3s linear infinite",
+        rainbow: "rainbow var(--speed, 2s) infinite linear",
+        "shimmer-slide": "shimmer-slide var(--speed) ease-in-out infinite alternate",
+        "spin-around": "spin-around calc(var(--speed) * 2) infinite linear",
       },
     },
   },

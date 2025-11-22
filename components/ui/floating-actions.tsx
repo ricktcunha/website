@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUp, MessageCircle } from "lucide-react";
+import { ArrowUp } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
 export function FloatingActions() {
@@ -21,8 +22,8 @@ export function FloatingActions() {
   };
 
   const openWhatsApp = () => {
-    // Substitua pelo seu número (formato internacional sem +)
-    const phoneNumber = "5511999999999"; // Exemplo: 55 (Brasil) + DDD + Número
+    // Número do WhatsApp: (35) 99765-7991
+    const phoneNumber = "5535997657991"; // 55 (Brasil) + 35 (DDD) + 997657991
     const message = encodeURIComponent("Olá! Gostaria de conversar sobre um projeto.");
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
   };
@@ -39,8 +40,8 @@ export function FloatingActions() {
         onClick={openWhatsApp}
         className="group relative w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300"
       >
-        <MessageCircle className="w-6 h-6 text-white" />
-        
+        <FaWhatsapp className="w-7 h-7 text-white" />
+
         {/* Tooltip */}
         <div className="absolute right-full mr-3 px-3 py-2 bg-zinc-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
           Fale no WhatsApp
@@ -65,7 +66,7 @@ export function FloatingActions() {
             className="group relative w-14 h-14 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300"
           >
             <ArrowUp className="w-5 h-5 text-white" />
-            
+
             {/* Tooltip */}
             <div className="absolute right-full mr-3 px-3 py-2 bg-zinc-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
               Voltar ao topo
@@ -77,4 +78,3 @@ export function FloatingActions() {
     </div>
   );
 }
-

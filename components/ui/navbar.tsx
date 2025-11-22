@@ -17,6 +17,19 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Handle smooth scroll to section when navigating from other pages
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }, []);
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -28,30 +41,49 @@ export function Navbar() {
       )}
     >
       {/* Logo */}
-      <Link 
+      <Link
         href="/"
         className="hover:opacity-80 transition-opacity cursor-pointer w-20 h-5 relative"
       >
-        <Image 
-          src="/rick-logo.svg" 
-          alt="Rick Logo" 
-          fill 
-          className="object-contain object-left" 
+        <Image
+          src="/rick-logo.svg"
+          alt="Rick Logo"
+          fill
+          className="object-contain object-left"
           priority
         />
       </Link>
-      
+
       {/* Navigation - Horizontal Clean */}
-      <nav className="flex gap-8 md:gap-12 items-center">
+      <nav className="flex gap-4 md:gap-8 lg:gap-12 items-center">
         {[
-          { name: "Trabalhos", href: "#portfolio" },
-          { name: "Sobre", href: "#about" },
-          { name: "Contato", href: "#contact" },
+          { name: "Trabalhos", href: "/trabalhos" },
+          { name: "Sobre", href: "/#about" },
+          { name: "Currículo", href: "/curriculo" },
+          { name: "Contato", href: "/#contact" },
         ].map((item) => (
           <Link
             key={item.name}
             href={item.href}
-            className="text-sm font-extralight text-zinc-500 hover:text-purple-400 transition-colors tracking-wide relative group"
+            scroll={false}
+            onClick={(e) => {
+              // Handle anchor links with smooth scroll
+              if (item.href.includes('#')) {
+                const hash = item.href.split('#')[1];
+                
+                // If we're on the home page, scroll smoothly
+                if (window.location.pathname === '/') {
+                  e.preventDefault();
+                  const element = document.getElementById(hash);
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }
+                // If we're on another page, navigate first (Next.js will handle it)
+                // The scroll will happen after navigation via useEffect
+              }
+            }}
+            className="text-xs md:text-sm font-extralight text-zinc-500 hover:text-purple-400 transition-colors tracking-wide relative group"
           >
             {item.name}
             <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-purple-500 to-purple-600 group-hover:w-full transition-all duration-300" />

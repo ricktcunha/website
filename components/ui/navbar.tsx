@@ -19,48 +19,45 @@ export function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 lg:px-24 py-6 transition-all duration-500", // Added lg:px-24 to match grid
-        scrolled ? "bg-black/50 backdrop-blur-xl border-b border-white/5 py-4" : "bg-transparent"
+        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 lg:px-24 py-8 transition-all duration-500",
+        scrolled ? "bg-black/80 backdrop-blur-xl py-6" : "bg-transparent"
       )}
     >
-      <div className="hover:opacity-80 transition-opacity cursor-pointer w-24 h-6 relative"> {/* Smaller Logo */}
+      {/* Logo */}
+      <Link 
+        href="/"
+        className="hover:opacity-80 transition-opacity cursor-pointer w-20 h-5 relative"
+      >
         <Image 
           src="/rick-logo.svg" 
-          alt="RICK Logo" 
+          alt="Rick Logo" 
           fill 
           className="object-contain object-left" 
           priority
         />
-      </div>
+      </Link>
       
-      <nav className="hidden md:flex gap-8 items-center">
+      {/* Navigation - Horizontal Clean */}
+      <nav className="flex gap-8 md:gap-12 items-center">
         {[
-          { name: "Work", href: "#portfolio" },
-          { name: "About", href: "#about" },
-          { name: "Solutions", href: "#solutions" },
-          { name: "Contact", href: "#contact" },
+          { name: "Trabalhos", href: "#portfolio" },
+          { name: "Sobre", href: "#about" },
+          { name: "Contato", href: "#contact" },
         ].map((item) => (
           <Link
             key={item.name}
             href={item.href}
-            className="text-sm font-medium text-zinc-400 hover:text-white transition-colors tracking-wide"
+            className="text-sm font-extralight text-zinc-500 hover:text-purple-400 transition-colors tracking-wide relative group"
           >
             {item.name}
+            <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-purple-500 to-purple-600 group-hover:w-full transition-all duration-300" />
           </Link>
         ))}
       </nav>
-
-      <button className="md:hidden text-white p-2">
-        <span className="sr-only">Menu</span>
-        <div className="space-y-1.5">
-            <span className="block w-6 h-0.5 bg-white"></span>
-            <span className="block w-6 h-0.5 bg-white"></span>
-        </div>
-      </button>
     </motion.header>
   );
 }

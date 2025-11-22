@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Globe, PenTool, Image as ImageIcon } from "lucide-react";
+import { ds } from "@/lib/design-tokens";
+import { cn } from "@/lib/utils";
 
 const solutions = [
   {
@@ -30,19 +32,23 @@ export function Solutions() {
       {/* Subtler Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10" />
 
-      <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
-           <motion.h2
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+      <div className={cn("container mx-auto", ds.spacing.containerMaxWidth)}>
+        <div className="mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-medium tracking-tight"
+            transition={{ duration: 0.8 }}
+            className="max-w-2xl"
           >
-            Minhas Soluções
-          </motion.h2>
-          <p className="text-lg text-muted-foreground font-light max-w-xs text-right hidden md:block">
-            Abordagem estratégica para resolver problemas de negócios.
-          </p>
+            <p className="text-xs text-purple-500/80 mb-4 uppercase tracking-[0.2em] font-light">O Que Ofereço</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-extralight text-white tracking-tighter leading-tight mb-6">
+              Minhas <span className="text-transparent bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text italic font-serif font-light">Soluções</span>
+            </h2>
+            <p className="text-base md:text-lg text-zinc-500 font-light leading-relaxed">
+              Abordagem estratégica para resolver problemas de negócios.
+            </p>
+          </motion.div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -62,14 +68,14 @@ function SolutionCard({ solution, index }: { solution: any; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
       viewport={{ once: true }}
-      className="group relative p-8 rounded-xl border border-white/5 bg-zinc-900/20 hover:bg-zinc-900/40 transition-all duration-500 flex flex-col"
+      className="group relative p-8 rounded-xl border border-purple-500/10 bg-white/5 hover:bg-purple-500/5 hover:border-purple-500/30 transition-all duration-500 flex flex-col"
     >
-      <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center text-zinc-400 group-hover:text-primary group-hover:scale-110 transition-all duration-300 mb-8">
+      <div className="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:text-purple-300 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all duration-300 mb-8">
         <solution.icon size={24} />
       </div>
       
-      <h3 className="text-xl font-medium mb-4 group-hover:text-white transition-colors">{solution.title}</h3>
-      <p className="text-lg text-muted-foreground leading-relaxed group-hover:text-zinc-400 transition-colors font-light">
+      <h3 className="text-2xl font-light mb-4 text-white transition-colors">{solution.title}</h3>
+      <p className="text-lg text-zinc-400 leading-relaxed group-hover:text-zinc-300 transition-colors font-light">
         {solution.description}
       </p>
     </motion.div>

@@ -3,10 +3,10 @@ import { About } from "@/components/sections/about";
 import { Portfolio } from "@/components/sections/portfolio";
 import { Solutions } from "@/components/sections/solutions";
 import { Skills } from "@/components/sections/skills";
-import { Resume } from "@/components/sections/resume";
 import { Contact } from "@/components/sections/contact";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
+import { FloatingActions } from "@/components/ui/floating-actions";
 
 export default function Home() {
   return (
@@ -16,10 +16,10 @@ export default function Home() {
       <About />
       <Portfolio />
       <Solutions />
-      <Resume />
       <Skills />
       <Contact />
       <Footer />
+      <FloatingActions />
     </main>
   );
 }

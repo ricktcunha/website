@@ -1,69 +1,56 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { ds } from "@/lib/design-tokens";
 
 export function Contact() {
   return (
-    <section id="contact" className="py-24 md:py-32 px-6 border-t border-white/5">
-      <div className="container mx-auto max-w-5xl text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-6xl font-medium mb-6 tracking-tight">
-            Vamos criar algo único.
-          </h2>
-          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-            Disponível para novos projetos e colaborações. Transforme sua visão em realidade digital.
-          </p>
+    <section id="contact" className="py-32 md:py-40 bg-black relative">
+      <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
+        
+        <div className="max-w-3xl">
+          
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="mb-12"
+          >
+            <p className="text-xs text-purple-500/80 mb-4 uppercase tracking-[0.2em] font-light">Vamos conversar</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-extralight text-white tracking-tighter leading-tight mb-6">
+              Entre em <span className="text-transparent bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text">contato</span>
+            </h2>
+            <p className="text-base md:text-lg text-zinc-500 font-light leading-relaxed">
+              Procurando um designer e desenvolvedor para dar vida ao seu projeto? Adoraria conversar sobre sua ideia. Atualmente aceitando novos projetos para 2025.
+            </p>
+          </motion.div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
+          {/* Contact Actions */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4"
+          >
             <a
-              href="mailto:contato@ricktavares.com"
-              className="px-8 py-3 bg-white text-black rounded-full font-medium text-sm hover:bg-gray-200 transition-colors min-w-[160px]"
+              href="mailto:rick@example.com"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-black rounded-full text-sm font-medium hover:bg-zinc-200 transition-colors"
             >
-              Enviar Email
+              Enviar mensagem
             </a>
-            <a
-              href="https://wa.me/5511999999999"
-              className="px-8 py-3 border border-white/10 bg-transparent text-white rounded-full font-medium text-sm hover:bg-white/5 transition-colors min-w-[160px]"
+            <button
+              onClick={() => navigator.clipboard.writeText('rick@example.com')}
+              className="inline-flex items-center justify-center px-8 py-4 border border-white/10 text-white rounded-full text-sm font-light hover:bg-white/5 transition-colors"
             >
-              WhatsApp
-            </a>
-          </div>
-        </motion.div>
+              Copiar e-mail
+            </button>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left"
-        >
-          <div className="space-y-4">
-            <h4 className="text-xs text-zinc-500 uppercase tracking-[0.2em]">Contato</h4>
-            <p className="text-lg text-zinc-300 font-light">contato@rick.design</p>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-xs text-zinc-500 uppercase tracking-[0.2em]">Social</h4>
-            <ul className="space-y-2 text-zinc-400 text-lg font-light">
-              <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-xs text-zinc-500 uppercase tracking-[0.2em]">Serviços</h4>
-            <ul className="space-y-2 text-zinc-400 text-lg font-light">
-              <li>Web Design</li>
-              <li>Front-End</li>
-            </ul>
-          </div>
-           <div className="space-y-4">
-            <h4 className="text-xs text-zinc-500 uppercase tracking-[0.2em]">Local</h4>
-            <p className="text-lg text-zinc-300 font-light">Brasil (Remote)</p>
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

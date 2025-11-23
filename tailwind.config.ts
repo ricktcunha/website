@@ -130,6 +130,14 @@ const config: Config = {
             transform: "translateZ(0) rotate(360deg)",
           },
         },
+        "shiny-text": {
+          "0%": {
+            backgroundPosition: "-200% center",
+          },
+          "100%": {
+            backgroundPosition: "200% center",
+          },
+        },
       },
       animation: {
         aurora: "aurora 60s linear infinite",
@@ -143,6 +151,7 @@ const config: Config = {
         rainbow: "rainbow var(--speed, 2s) infinite linear",
         "shimmer-slide": "shimmer-slide var(--speed) ease-in-out infinite alternate",
         "spin-around": "spin-around calc(var(--speed) * 2) infinite linear",
+        "shiny-text": "shiny-text 3s linear infinite",
       },
     },
   },

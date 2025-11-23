@@ -6,12 +6,12 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { projects, Project } from "@/lib/projects-data";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
+import type React from "react";
 
 const tabs = [
-  { id: "all", label: "ALL WORK" },
+  { id: "all", label: "TODOS OS TRABALHOS" },
   { id: "websites", label: "WEBSITES" },
   { id: "branding", label: "BRANDING" },
 ];
@@ -47,7 +47,7 @@ export function Portfolio() {
               transition={{ delay: 0.1 }}
               className="text-5xl md:text-7xl font-normal text-white mb-6 tracking-tight"
             >
-              Selected <span className="text-purple-400 font-serif italic">Works</span>
+              Trabalhos <span className="text-purple-400 font-serif italic">Selecionados</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -56,7 +56,7 @@ export function Portfolio() {
               transition={{ delay: 0.2 }}
               className="text-zinc-500 text-lg max-w-md"
             >
-              Visual storytelling through code and design.
+              Narrativa visual através de código e design.
             </motion.p>
           </div>
 
@@ -155,15 +155,35 @@ export function Portfolio() {
 
         {/* View All Button */}
         <div className="mt-32 flex justify-center">
-          <ShimmerButton className="shadow-2xl px-8 py-4 h-auto rounded-full">
-            <Link
-              href="/trabalhos"
-              className="flex items-center gap-3 text-sm font-medium tracking-widest uppercase text-white group-hover:text-black transition-colors duration-500"
-            >
-              View All Projects
+          <Link
+            href="/trabalhos"
+            style={{
+              "--spread": "90deg",
+              "--shimmer-color": "#ffffff",
+              "--radius": "100px",
+              "--speed": "3s",
+              "--cut": "0.05em",
+              "--bg": "rgba(0, 0, 0, 1)",
+            } as React.CSSProperties}
+            className="group relative z-0 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap border border-white/10 px-8 py-4 text-sm font-medium tracking-widest uppercase text-white shadow-2xl transform-gpu transition-all duration-500 ease-in-out active:translate-y-px hover:bg-white hover:text-black hover:border-white [background:var(--bg)] [border-radius:var(--radius)]"
+          >
+            {/* spark container */}
+            <div className="-z-30 blur-[2px] absolute inset-0 overflow-visible [container-type:size]">
+              {/* spark */}
+              <div className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
+                {/* spark before */}
+                <div className="animate-spin-around absolute -inset-full w-auto rotate-0 [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+              </div>
+            </div>
+            
+            <span className="flex items-center gap-3 relative z-10">
+              Ver Todos os Projetos
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-500" />
-            </Link>
-          </ShimmerButton>
+            </span>
+
+            {/* backdrop */}
+            <div className="absolute -z-20 [border-radius:var(--radius)] [inset:var(--cut)] bg-black transition-all duration-500 ease-in-out group-hover:bg-white" />
+          </Link>
         </div>
       </div>
     </section>

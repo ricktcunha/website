@@ -19,13 +19,19 @@ export function Navbar() {
 
   // Handle smooth scroll to section when navigating from other pages
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
-      const hash = window.location.hash.substring(1);
-      const element = document.getElementById(hash);
-      if (element) {
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+    if (typeof window !== 'undefined') {
+      // Se há hash, rolar para o elemento
+      if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const element = document.getElementById(hash);
+        if (element) {
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        }
+      } else {
+        // Se não há hash, garantir que a página comece no topo
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     }
   }, []);
@@ -36,7 +42,7 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 lg:px-24 py-8 transition-all duration-500",
+        "fixed top-[2px] left-0 right-0 z-40 flex items-center justify-between px-6 md:px-12 lg:px-24 py-8 transition-all duration-500",
         scrolled ? "bg-black/80 backdrop-blur-xl py-6" : "bg-transparent"
       )}
     >

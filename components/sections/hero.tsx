@@ -33,7 +33,18 @@ export function Hero() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
-                  <span className="text-xs text-zinc-400 uppercase tracking-widest">Available for new projects</span>
+                  <span className="relative text-xs text-zinc-400 uppercase tracking-widest inline-block overflow-hidden">
+                    <span 
+                      className="relative bg-gradient-to-r from-zinc-400 via-white to-zinc-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-shiny-text"
+                      style={{
+                        backgroundSize: '200% auto',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                      }}
+                    >
+                      Disponível para novos projetos
+                    </span>
+                  </span>
                 </motion.div>
 
                 {/* Título Principal - Duas Linhas */}
@@ -43,9 +54,9 @@ export function Hero() {
                   transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="mb-12"
                 >
-                  <h1 className="text-[14vw] sm:text-[12vw] md:text-[10vw] lg:text-[8.5rem] font-extralight leading-[0.85] tracking-tighter mb-4 text-left">
-                    <span className="block text-white">Digital</span>
-                    <span className="block text-zinc-500 italic font-serif font-light">Alchemist</span>
+                  <h1 className="text-[12vw] sm:text-[10vw] md:text-[8.5vw] lg:text-[7rem] font-extralight leading-[0.85] tracking-tighter mb-4 text-left">
+                    <span className="block text-white">Alquimista</span>
+                    <span className="block text-zinc-500 italic font-serif font-light">Digital</span>
                   </h1>
                 </motion.div>
 
@@ -82,7 +93,11 @@ export function Hero() {
                 >
                   <RainbowButton
                     className="rounded-full px-8 py-4 h-auto text-sm font-medium group"
-                    onClick={() => window.location.href = "#contact"}
+                    onClick={() => {
+                      const phoneNumber = "5535997657991"; // 55 (Brasil) + 35 (DDD) + 997657991
+                      const message = encodeURIComponent("Olá! Gostaria de conversar sobre um projeto.");
+                      window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+                    }}
                   >
                     <span>Iniciar Projeto</span>
                     <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,9 +115,18 @@ export function Hero() {
               </div>
 
               {/* Coluna Direita - Logo Interativo */}
-              <div className="flex justify-center lg:justify-end">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 30, rotate: -5 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                transition={{
+                  duration: 1,
+                  delay: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="flex justify-center lg:justify-end"
+              >
                 <InteractiveLogo />
-              </div>
+              </motion.div>
 
             </div>
           </div>
@@ -121,7 +145,7 @@ export function Hero() {
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-3"
         >
-          <span className="text-xs text-zinc-600 uppercase tracking-[0.2em]">Scroll</span>
+            <span className="text-xs text-zinc-600 uppercase tracking-[0.2em]">Role</span>
           <div className="w-[1px] h-16 bg-gradient-to-b from-purple-500/50 via-purple-500/30 to-transparent" />
         </motion.div>
       </motion.div>

@@ -154,6 +154,24 @@
     animation: aurora 60s linear infinite;
   }
 
+  /* Logo Shimmer Stroke Animation */
+  @keyframes logo-shimmer-stroke {
+    0% {
+      stroke-dashoffset: 600;
+    }
+    100% {
+      stroke-dashoffset: -600;
+    }
+  }
+
+  .logo-shimmer-stroke {
+    animation: logo-shimmer-stroke 4s linear infinite;
+    stroke-dasharray: 120 80;
+    stroke-width: 0.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
   .animate-blob {
     animation: blob 10s infinite;
   }

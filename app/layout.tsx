@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Syne } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
-
+import { GlassmorphismBar } from "@/components/ui/glassmorphism-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const syne = Syne({
@@ -30,6 +30,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <GlassmorphismBar />
           <SmoothScroll>
             {children}
           </SmoothScroll>

@@ -62,7 +62,7 @@ export function Skills() {
         >
           <p className="text-xs text-purple-500/80 mb-4 uppercase tracking-[0.2em] font-light">Tecnologias</p>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-extralight text-white tracking-tighter leading-tight mb-6">
-            Tech <span className="text-transparent bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text italic font-serif font-light">Stack</span>
+            Stack <span className="text-transparent bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text italic font-serif font-light">Tecnológico</span>
           </h2>
           <p className="text-base md:text-lg text-zinc-500 font-light leading-relaxed">
             Ferramentas e tecnologias que uso para criar experiências digitais modernas, performáticas e visualmente impactantes.

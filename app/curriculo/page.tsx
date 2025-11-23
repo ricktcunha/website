@@ -8,8 +8,19 @@ import { ds } from "@/lib/design-tokens";
 import { ExternalLink } from "lucide-react";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
+import { useEffect } from "react";
 
 export default function CurriculoPage() {
+  // Garantir que a página sempre comece no topo ao carregar
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Se não há hash, rolar para o topo
+      if (!window.location.hash) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    }
+  }, []);
+
   return (
     <>
       <Navbar />

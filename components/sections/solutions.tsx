@@ -8,19 +8,19 @@ import { cn } from "@/lib/utils";
 const solutions = [
   {
     id: 1,
-    title: "Digital Products",
+    title: "Produtos Digitais",
     description: "Sites e apps focados em conversão.",
     icon: Globe,
   },
   {
     id: 2,
-    title: "Visual Identity",
+    title: "Identidade Visual",
     description: "Marcas com propósito e presença.",
     icon: PenTool,
   },
   {
     id: 3,
-    title: "Art Direction",
+    title: "Direção de Arte",
     description: "Conceitos visuais para campanhas.",
     icon: ImageIcon,
   },

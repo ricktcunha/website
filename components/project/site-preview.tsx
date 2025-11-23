@@ -48,7 +48,7 @@ export function SitePreview({ siteUrl, siteImage, title, description }: SitePrev
 
         {/* Corner Badge */}
         <div className="absolute top-4 right-4 px-4 py-2 rounded-full bg-purple-500/90 backdrop-blur-sm">
-          <p className="text-white text-xs font-medium uppercase tracking-wider">Live Site</p>
+          <p className="text-white text-xs font-medium uppercase tracking-wider">Site Online</p>
         </div>
       </motion.div>
 

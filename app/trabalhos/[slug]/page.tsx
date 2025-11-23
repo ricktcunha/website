@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 export async function generateStaticParams() {
   return projects.map((project) => ({
@@ -29,6 +30,7 @@ export default async function ProjetoPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <main className="min-h-screen bg-black pt-32 pb-24 px-6">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
@@ -11,13 +11,23 @@ import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
 
 const tabs = [
-  { id: "all", label: "ALL WORK" },
+  { id: "all", label: "TODOS OS TRABALHOS" },
   { id: "websites", label: "WEBSITES" },
   { id: "branding", label: "BRANDING" },
 ];
 
 export default function TrabalhosPag() {
   const [activeTab, setActiveTab] = useState("all");
+
+  // Garantir que a página sempre comece no topo ao carregar
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Se não há hash, rolar para o topo
+      if (!window.location.hash) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    }
+  }, []);
 
   const filteredProjects = projects.filter((project) => {
     if (activeTab === "all") return true;
@@ -38,7 +48,7 @@ export default function TrabalhosPag() {
             className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-12 group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to Home
+            Voltar ao Início
           </Link>
 
           <div className="flex flex-col md:flex-row justify-between items-end gap-8">
@@ -57,7 +67,7 @@ export default function TrabalhosPag() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="text-5xl md:text-7xl font-normal text-white mb-6 tracking-tight"
               >
-                All <span className="text-purple-400 font-serif italic">Projects</span>
+                Todos os <span className="text-purple-400 font-serif italic">Projetos</span>
               </motion.h1>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}

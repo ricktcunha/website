@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowUpRight, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { projects } from "@/lib/projects-data";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
+import { ProjectCard } from "@/components/ui/project-card";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
 
@@ -124,137 +125,16 @@ export default function TrabalhosPag() {
                 }}
                 className="w-full"
               >
-                {/* Desktop: Link direto */}
-                <Link 
-                  href={`/trabalhos/${project.slug}`} 
-                  className="hidden md:block group relative"
-                >
-                  <div className="relative h-[500px] w-full bg-black border border-white/10 rounded-3xl transition-all duration-700 ease-out overflow-hidden group-hover:bg-[#0a1f1c] group-hover:border-emerald-900/30">
-                    {/* Big Number Background - Always visible but subtle */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20rem] font-bold text-white/[0.03] pointer-events-none select-none transition-opacity duration-500 group-hover:text-white/[0.05]">
-                      {index + 1}
-                    </div>
-
-                    {/* Content Container - Desktop hover */}
-                    <div className="absolute inset-0 p-16 flex flex-col justify-between opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 group-hover:translate-y-0 translate-y-4">
-                      {/* Top Info */}
-                      <div className="flex justify-between items-start z-10">
-                        <span className="text-xs font-medium tracking-widest text-zinc-400 uppercase">
-                          {project.category === "Desenvolvedor Front-End" ? "WEBSITES" : "BRANDING"}
-                        </span>
-                        <span className="text-xs font-medium text-zinc-500">
-                          {project.year}
-                        </span>
-                      </div>
-
-                      {/* Bottom Info */}
-                      <div className="z-10">
-                        <h3 className="text-5xl md:text-7xl font-medium text-white mb-6">
-                          {project.title}
-                        </h3>
-                        <p className="text-zinc-400 text-lg mb-8 line-clamp-2 max-w-2xl font-light">
-                          {project.description}
-                        </p>
-
-                        <div className="flex items-center justify-between border-t border-white/10 pt-8">
-                          <div className="flex gap-4">
-                            {project.tags.slice(0, 3).map((tag) => (
-                              <span key={tag} className="text-xs font-medium uppercase tracking-wider text-zinc-500">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-
-                          <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all duration-300">
-                            <ArrowUpRight className="w-6 h-6" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-
-                {/* Mobile: Card com interação de dois toques */}
-                <div 
-                  className={cn(
-                    "md:hidden group relative w-full bg-black border border-white/10 rounded-3xl transition-all duration-700 ease-out overflow-hidden",
-                    expandedCard === project.id ? "bg-[#0a1f1c] border-emerald-900/30" : "h-[280px]"
-                  )}
-                  style={{
-                    height: expandedCard === project.id ? 'auto' : '280px',
+                <ProjectCard
+                  project={project}
+                  index={index}
+                  expanded={expandedCard === project.id}
+                  onExpand={(id) => setExpandedCard(id)}
+                  onNavigate={(slug) => {
+                    setExpandedCard(null);
+                    router.push(`/trabalhos/${slug}`);
                   }}
-                >
-                  {/* Big Number Background */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] font-bold text-white/[0.03] pointer-events-none select-none transition-opacity duration-500">
-                    {index + 1}
-                  </div>
-
-                  {/* Clickable overlay - Primeiro toque: expande, Segundo toque: navega */}
-                  {expandedCard !== project.id ? (
-                    // Primeiro toque: expande o card
-                    <div 
-                      className="absolute inset-0 z-20 cursor-pointer"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setExpandedCard(project.id);
-                      }}
-                    />
-                  ) : (
-                    // Segundo toque: navega para o projeto (qualquer lugar do card)
-                    <div 
-                      className="absolute inset-0 z-20 cursor-pointer"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        router.push(`/trabalhos/${project.slug}`);
-                      }}
-                    />
-                  )}
-
-                  {/* Content Container - Mobile: visible quando expandido */}
-                  <div className={cn(
-                    "p-6 flex flex-col justify-between transition-all duration-500 relative z-10",
-                    expandedCard === project.id 
-                      ? "opacity-100 translate-y-0" 
-                      : "absolute inset-0 opacity-0 translate-y-4"
-                  )}>
-                    {/* Top Info */}
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="text-[11px] font-medium tracking-widest text-zinc-400 uppercase">
-                        {project.category === "Desenvolvedor Front-End" ? "WEBSITES" : "BRANDING"}
-                      </span>
-                      <span className="text-[11px] font-medium text-zinc-500">
-                        {project.year}
-                      </span>
-                    </div>
-
-                    {/* Bottom Info */}
-                    <div className="flex-1 flex flex-col justify-end">
-                      <h3 className="text-3xl font-medium text-white mb-3 leading-tight">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-zinc-400 mb-4 line-clamp-2 max-w-2xl font-light leading-relaxed">
-                        {project.description}
-                      </p>
-
-                      <div className="flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-4">
-                        <div className="flex flex-wrap gap-2">
-                          {project.tags.slice(0, 3).map((tag) => (
-                            <span key={tag} className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Ícone visual (não clicável, apenas decorativo) */}
-                        <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0 bg-white/5 pointer-events-none">
-                          <ArrowUpRight className="w-5 h-5" strokeWidth={2.5} />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                />
               </motion.div>
             ))}
           </AnimatePresence>

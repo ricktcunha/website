@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export function About() {
   return (
-    <section id="about" className="py-24 md:py-32 px-6 bg-black/20">
+    <section id="about" className="py-24 md:py-32 bg-black/20">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
         <div className="grid md:grid-cols-[400px_1fr] gap-12 md:gap-20 items-start">
           <motion.div

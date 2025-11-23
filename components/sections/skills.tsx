@@ -6,9 +6,9 @@ import { ds } from "@/lib/design-tokens";
 import { cn } from "@/lib/utils";
 import {
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiJavascript, SiHtml5, SiCss3,
-  SiFramer, SiThreedotjs, SiGreensock,
-  SiFigma, SiAdobexd, SiAdobephotoshop, SiAdobeillustrator, SiAdobeaftereffects, SiAdobepremierepro,
-  SiGit, SiGithub, SiVercel, SiFirebase, SiNodedotjs
+  SiThreedotjs, SiGreensock,
+  SiFigma, SiAdobephotoshop, SiAdobeillustrator, SiAdobeaftereffects, SiAdobepremierepro,
+  SiGit, SiGithub, SiFirebase, SiNodedotjs
 } from "react-icons/si";
 import { VscCode } from "react-icons/vsc";
 
@@ -24,13 +24,11 @@ const techStack = [
   { name: "CSS3", Icon: SiCss3, color: "#1572B6" },
 
   // Animation & 3D
-  { name: "Framer", Icon: SiFramer, color: "#0055FF" },
   { name: "Three.js", Icon: SiThreedotjs, color: "#FFFFFF" },
   { name: "GSAP", Icon: SiGreensock, color: "#88CE02" },
 
   // Design Tools
   { name: "Figma", Icon: SiFigma, color: "#F24E1E" },
-  { name: "Adobe XD", Icon: SiAdobexd, color: "#FF61F6" },
   { name: "Photoshop", Icon: SiAdobephotoshop, color: "#31A8FF" },
   { name: "Illustrator", Icon: SiAdobeillustrator, color: "#FF9A00" },
   { name: "After Effects", Icon: SiAdobeaftereffects, color: "#9999FF" },
@@ -40,7 +38,6 @@ const techStack = [
   { name: "Git", Icon: SiGit, color: "#F05032" },
   { name: "GitHub", Icon: SiGithub, color: "#FFFFFF" },
   { name: "VS Code", Icon: VscCode, color: "#007ACC" },
-  { name: "Vercel", Icon: SiVercel, color: "#FFFFFF" },
   { name: "Firebase", Icon: SiFirebase, color: "#FFCA28" },
   { name: "Node.js", Icon: SiNodedotjs, color: "#339933" },
 ];

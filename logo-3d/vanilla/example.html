@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo 3D + Hero Glassmorphism - Vanilla JS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Hero Banner -->
+  <section class="hero-glass">
+    <!-- Background Shapes -->
+    <div class="shapes-container" id="shapes"></div>
+    
+    <!-- Noise Overlay -->
+    <div class="noise-overlay"></div>
+    
+    <!-- Content -->
+    <div class="hero-content">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left Column - Text -->
+          <div class="hero-text">
+            <div class="badge glass-panel">
+              <span class="badge-dot"></span>
+              <span class="badge-text">Disponível para novos projetos</span>
+            </div>
+            
+            <h1 class="hero-title">
+              <span class="title-line">Alquimista</span>
+              <span class="title-line italic">Digital</span>
+            </h1>
+            
+            <p class="hero-description">
+              Transformando ideias complexas em interfaces fluidas e experiências digitais imersivas.
+            </p>
+            
+            <p class="hero-subtitle">
+              Design estratégico + Engenharia de alta performance.
+            </p>
+            
+            <div class="hero-ctas">
+              <button class="btn-primary" id="cta-primary">
+                Iniciar Projeto
+                <svg class="btn-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+              <button class="btn-secondary" id="cta-secondary">Ver Portfólio</button>
+            </div>
+          </div>
+          
+          <!-- Right Column - Logo 3D -->
+          <div class="hero-logo">
+            <canvas id="logo-canvas"></canvas>
+            <img id="logo-fallback" src="../../public/rick-logo.svg" alt="Logo RICK" style="display: none;">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+      <span class="scroll-text">Role</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Three.js from CDN -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  
+  <script type="module" src="main.js"></script>
+</body>
+</html>
+

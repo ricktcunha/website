@@ -28,7 +28,7 @@ const solutions = [
 
 export function Solutions() {
   return (
-    <section id="solutions" className="py-24 md:py-32 px-6 bg-black/20">
+    <section id="solutions" className="py-24 md:py-32 bg-black/20">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
         <div className="mb-20">
           <motion.div

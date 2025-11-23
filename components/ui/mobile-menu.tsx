@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -20,16 +21,39 @@ const menuItems = [
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  // Mount check for portal
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -59,7 +83,9 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     }, 300);
   };
 
-  return (
+  if (!mounted) return null;
+
+  const menuContent = (
     <AnimatePresence>
       {isOpen && (
         <>
@@ -70,7 +96,16 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-md z-50"
+            className="fixed inset-0 bg-black/40 backdrop-blur-md"
+            style={{ 
+              position: 'fixed', 
+              top: 0, 
+              left: 0, 
+              right: 0, 
+              bottom: 0,
+              zIndex: 9999,
+              touchAction: 'none'
+            }}
           />
 
           {/* Menu Panel - Lateral Direita */}
@@ -84,7 +119,17 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               stiffness: 300,
               mass: 0.8
             }}
-            className="fixed top-0 right-0 h-full w-[85vw] max-w-sm z-50 bg-zinc-950/80 backdrop-blur-2xl border-l border-white/5 shadow-2xl"
+            className="fixed top-0 right-0 bg-zinc-950/80 backdrop-blur-2xl border-l border-white/5 shadow-2xl"
+            style={{ 
+              position: 'fixed', 
+              top: 0, 
+              right: 0, 
+              height: '100vh',
+              width: '85vw',
+              maxWidth: '384px',
+              zIndex: 10000,
+              touchAction: 'pan-y'
+            }}
           >
             {/* Header */}
             <div className="relative z-10 flex items-center justify-between p-6 border-b border-white/5">
@@ -152,4 +197,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       )}
     </AnimatePresence>
   );
+
+  return mounted ? createPortal(menuContent, document.body) : null;
 }

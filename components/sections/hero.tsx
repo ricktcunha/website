@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import React from "react";
-import { InteractiveBackground } from "@/components/ui/interactive-background";
+import { SplineBackground } from "@/components/ui/spline-background";
 import { InteractiveLogo } from "@/components/ui/interactive-logo";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
@@ -10,14 +10,15 @@ import { RainbowButton } from "@/components/ui/rainbow-button";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-visible">
-      <InteractiveBackground>
-        <div className="w-full h-full flex items-center justify-center relative z-20 px-6 py-32">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+      <SplineBackground />
+      <div className="relative z-10 w-full h-full">
+        <div className="w-full h-full flex items-center justify-center relative z-20 px-6 py-32 min-h-screen">
           <div className={cn(
             "container mx-auto",
             ds.spacing.containerMaxWidth
           )}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-20">
 
               {/* Coluna Esquerda - Conteúdo */}
               <div className="max-w-3xl">
@@ -123,7 +124,7 @@ export function Hero() {
                   delay: 0.8,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="flex justify-center lg:justify-end"
+                className="hidden lg:flex justify-center lg:justify-end"
               >
                 <InteractiveLogo />
               </motion.div>
@@ -131,7 +132,7 @@ export function Hero() {
             </div>
           </div>
         </div>
-      </InteractiveBackground>
+      </div>
 
       {/* Scroll Indicator */}
       <motion.div

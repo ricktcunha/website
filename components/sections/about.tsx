@@ -15,7 +15,7 @@ export function About() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="relative h-full"
+            className="relative h-[400px] md:h-full w-full"
           >
             <div className="h-full w-full relative rounded-xl group animated-stroke-border">
               <div className="w-full h-full relative rounded-[calc(0.75rem-2px)] overflow-hidden bg-black">

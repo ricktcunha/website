@@ -93,7 +93,7 @@ export function Hero() {
                   className="flex flex-col sm:flex-row items-start gap-4"
                 >
                   <RainbowButton
-                    className="rounded-full px-8 py-4 h-auto text-sm font-medium group"
+                    className="w-full sm:flex-1 rounded-full px-8 py-4 h-auto text-sm font-medium group"
                     onClick={() => {
                       const phoneNumber = "5535997657991"; // 55 (Brasil) + 35 (DDD) + 997657991
                       const message = encodeURIComponent("Olá! Gostaria de conversar sobre um projeto.");
@@ -108,7 +108,7 @@ export function Hero() {
 
                   <a
                     href="#portfolio"
-                    className="inline-flex items-center justify-center px-8 py-4 border border-white/10 text-white rounded-full text-sm font-light hover:bg-white/5 transition-colors"
+                    className="w-full sm:flex-1 inline-flex items-center justify-center px-8 py-4 border border-white/10 text-white rounded-full text-sm font-light hover:bg-white/5 transition-colors"
                   >
                     Ver Portfólio
                   </a>

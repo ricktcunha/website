@@ -5,9 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { MobileMenu } from "./mobile-menu";
+import { Menu } from "lucide-react";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,8 +63,8 @@ export function Navbar() {
         />
       </Link>
 
-      {/* Navigation - Horizontal Clean */}
-      <nav className="flex gap-4 md:gap-8 lg:gap-12 items-center">
+      {/* Navigation - Desktop */}
+      <nav className="hidden md:flex gap-4 md:gap-8 lg:gap-12 items-center">
         {[
           { name: "Trabalhos", href: "/trabalhos" },
           { name: "Sobre", href: "/#about" },
@@ -96,6 +99,18 @@ export function Navbar() {
           </Link>
         ))}
       </nav>
+
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setMobileMenuOpen(true)}
+        className="md:hidden p-2 rounded-full hover:bg-white/5 transition-colors duration-300 text-zinc-400 hover:text-white"
+        aria-label="Abrir menu"
+      >
+        <Menu size={24} strokeWidth={1.5} />
+      </button>
+
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
     </motion.header>
   );
 }

@@ -28,7 +28,7 @@ export function About() {
                   className="w-full h-full relative"
                 >
                   <Image
-                    src="/rick-avatar.png"
+                    src="/images/assets/avatar/rick-avatar.png"
                     alt="Rick Cunha"
                     fill
                     className="object-cover"

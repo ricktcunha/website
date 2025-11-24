@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { projects } from "@/lib/projects-data";
+import { projects, getHomePageProjects } from "@/lib/projects-data";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { ProjectCard } from "@/components/ui/project-card";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ const tabs = [
   { id: "all", label: "TODOS OS TRABALHOS" },
   { id: "websites", label: "WEBSITES" },
   { id: "branding", label: "BRANDING" },
+  { id: "campanhas", label: "CAMPANHAS" },
 ];
 
 export function Portfolio() {
@@ -23,12 +24,16 @@ export function Portfolio() {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
   const router = useRouter();
 
-  const filteredProjects = projects.filter((project) => {
+  // Para a página inicial, usar getHomePageProjects() que retorna os 6 trabalhos específicos
+  const homeProjects = getHomePageProjects();
+  
+  const filteredProjects = homeProjects.filter((project) => {
     if (activeTab === "all") return true;
     if (activeTab === "websites") return project.category === "Desenvolvedor Front-End";
-    if (activeTab === "branding") return project.category === "Design de Marcas" || project.category === "Designer Gráfico";
+    if (activeTab === "branding") return project.category === "Design de Marcas";
+    if (activeTab === "campanhas") return project.category === "Campanhas - Postagens" || project.category === "Campanhas - KV's";
     return true;
-  }).slice(0, 6); // Show only 6 featured projects as requested
+  });
 
   return (
     <section id="portfolio" className="py-32 bg-black text-white">

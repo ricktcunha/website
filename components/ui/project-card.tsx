@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { Project } from "@/lib/projects-data";
@@ -29,7 +30,15 @@ export function ProjectCard({
   const router = useRouter();
 
   const categoryLabel =
-    project.category === "Desenvolvedor Front-End" ? "WEBSITES" : "BRANDING";
+    project.category === "Desenvolvedor Front-End"
+      ? "WEBSITES"
+      : project.category === "Design de Marcas"
+      ? "BRANDING"
+      : project.category === "Campanhas - Postagens"
+      ? "POSTAGENS"
+      : project.category === "Campanhas - KV's"
+      ? "KV'S"
+      : "BRANDING";
 
   const handleMobileExpand = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,10 +67,27 @@ export function ProjectCard({
         href={`/trabalhos/${project.slug}`}
         className="hidden md:block group relative"
       >
-        <div className="relative h-[500px] w-full bg-black border border-white/10 rounded-3xl transition-all duration-700 ease-out overflow-hidden group-hover:bg-[#0a1f1c] group-hover:border-emerald-900/30">
-          {/* Big Number Background - Always visible but subtle */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20rem] font-bold text-white/[0.03] pointer-events-none select-none transition-opacity duration-500 group-hover:text-white/[0.05]">
-            {index + 1}
+        <div className="relative h-[500px] w-full bg-black border border-white/10 rounded-3xl transition-all duration-700 ease-out overflow-hidden group-hover:border-purple-500/30">
+          {/* Thumbnail Image Background - Sem filtro por padrão */}
+          <div className="absolute inset-0">
+            {project.thumbnail.endsWith('.svg') ? (
+              <img
+                src={project.thumbnail}
+                alt={project.title}
+                className="w-full h-full object-contain p-16 transition-all duration-700"
+              />
+            ) : (
+              <Image
+                src={project.thumbnail}
+                alt={project.title}
+                fill
+                className="object-cover transition-all duration-700"
+                sizes="(max-width: 1200px) 100vw, 50vw"
+                priority={index < 2}
+              />
+            )}
+            {/* Filtro escuro só aparece no hover */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
           </div>
 
           {/* Content Container - Desktop hover */}
@@ -108,17 +134,36 @@ export function ProjectCard({
 
       {/* Mobile: Card com interação de dois toques */}
       <div
-        className={cn(
+          className={cn(
           "md:hidden group relative w-full bg-black border border-white/10 rounded-3xl transition-all duration-700 ease-out overflow-hidden",
-          expanded ? "bg-[#0a1f1c] border-emerald-900/30" : "h-[280px]"
+          expanded ? "border-purple-500/30" : "h-[280px]"
         )}
         style={{
           height: expanded ? "auto" : "280px",
         }}
       >
-        {/* Big Number Background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10rem] font-bold text-white/[0.03] pointer-events-none select-none transition-opacity duration-500">
-          {index + 1}
+        {/* Thumbnail Image Background - Mobile - Sem filtro por padrão */}
+        <div className="absolute inset-0 z-0">
+          {project.thumbnail.endsWith('.svg') ? (
+            <img
+              src={project.thumbnail}
+              alt={project.title}
+              className="w-full h-full object-contain p-8 transition-all duration-700"
+            />
+          ) : (
+            <Image
+              src={project.thumbnail}
+              alt={project.title}
+              fill
+              className="object-cover transition-all duration-700"
+              sizes="100vw"
+            />
+          )}
+          {/* Filtro escuro só aparece quando expandido */}
+          <div className={cn(
+            "absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/50 transition-opacity duration-700",
+            expanded ? "opacity-100" : "opacity-0"
+          )} />
         </div>
 
         {/* Clickable overlay - Primeiro toque: expande, Segundo toque: navega */}

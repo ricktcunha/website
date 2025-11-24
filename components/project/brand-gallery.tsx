@@ -13,6 +13,28 @@ interface BrandGalleryProps {
 export function BrandGallery({ images, title }: BrandGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [validImages, setValidImages] = useState<string[]>(images);
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
+
+  // Filtrar imagens que falharam ao carregar
+  useEffect(() => {
+    const filtered = images.filter((img) => !imageErrors.has(img));
+    setValidImages(filtered);
+    // Atualizar currentIndex se necessário
+    if (currentIndex >= filtered.length && filtered.length > 0) {
+      setCurrentIndex(0);
+    } else if (filtered.length === 0) {
+      setCurrentIndex(0);
+    }
+  }, [images, imageErrors]);
+
+  const handleImageError = (imageSrc: string) => {
+    setImageErrors((prev) => {
+      const newSet = new Set(prev);
+      newSet.add(imageSrc);
+      return newSet;
+    });
+  };
 
   const openLightbox = (index: number) => {
     setCurrentIndex(index);
@@ -24,11 +46,11 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
   };
 
   const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    setCurrentIndex((prev) => (prev + 1) % validImages.length);
   };
 
   const prevImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    setCurrentIndex((prev) => (prev - 1 + validImages.length) % validImages.length);
   };
 
   // Keyboard navigation
@@ -49,32 +71,39 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
   return (
     <>
       {/* Gallery Grid - Bento Box Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {images.map((image, index) => {
-          // Alternate between full-width and half-width
-          const isFullWidth = index % 3 === 0;
+      {validImages.length === 0 ? (
+        <div className="text-center py-20">
+          <p className="text-zinc-500">Nenhuma imagem encontrada para este projeto.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {validImages.map((image, index) => {
+            // Alternate between full-width and half-width
+            const isFullWidth = index % 3 === 0;
 
-          return (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`
-                relative group cursor-pointer overflow-hidden rounded-xl
-                ${isFullWidth ? "md:col-span-2" : "md:col-span-1"}
-                ${isFullWidth ? "aspect-[16/9]" : "aspect-square"}
-              `}
-              onClick={() => openLightbox(index)}
-            >
-              <Image
-                src={image}
-                alt={`${title} - Imagem ${index + 1}`}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
+            return (
+              <motion.div
+                key={image}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className={`
+                  relative group cursor-pointer overflow-hidden rounded-xl
+                  ${isFullWidth ? "md:col-span-2" : "md:col-span-1"}
+                  ${isFullWidth ? "aspect-[16/9]" : "aspect-square"}
+                `}
+                onClick={() => openLightbox(index)}
+              >
+                <Image
+                  src={image}
+                  alt={`${title} - Imagem ${index + 1}`}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  onError={() => handleImageError(image)}
+                  unoptimized={image.endsWith('.svg')}
+                />
 
               {/* Hover Overlay */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
@@ -89,7 +118,8 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
             </motion.div>
           );
         })}
-      </div>
+        </div>
+      )}
 
       {/* Lightbox */}
       <AnimatePresence>
@@ -111,7 +141,7 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
 
             {/* Image Counter */}
             <div className="absolute top-6 left-6 text-white text-sm font-light z-10">
-              {currentIndex + 1} / {images.length}
+              {currentIndex + 1} / {validImages.length}
             </div>
 
             {/* Main Image */}
@@ -125,17 +155,18 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <Image
-                src={images[currentIndex]}
+                src={validImages[currentIndex]}
                 alt={`${title} - Imagem ${currentIndex + 1}`}
                 fill
                 className="object-contain"
                 sizes="100vw"
                 priority
+                unoptimized={validImages[currentIndex]?.endsWith('.svg')}
               />
             </motion.div>
 
             {/* Navigation Buttons */}
-            {images.length > 1 && (
+            {validImages.length > 1 && (
               <>
                 <button
                   onClick={(e) => {

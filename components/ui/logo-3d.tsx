@@ -284,7 +284,7 @@ export function Logo3D({
   preset = "brand",
   fallbackOnMobile = true,
   logoSvg,
-  fallbackImage = "/rick-logo.svg",
+  fallbackImage = "/images/assets/logos/rick-logo.svg",
   size = "auto",
 }: Logo3DProps) {
   const [shouldUseFallback, setShouldUseFallback] = useState(false);

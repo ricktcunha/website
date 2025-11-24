@@ -58,7 +58,7 @@ export default function CurriculoPage() {
                         className="w-full h-full relative"
                       >
                         <Image
-                          src="/rick-avatar.png"
+                          src="/images/assets/avatar/rick-avatar.png"
                           alt="Rick - Profile Photo"
                           fill
                           className="object-cover"

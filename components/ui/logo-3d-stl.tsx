@@ -147,7 +147,7 @@ export function Logo3DSTL({
   rotationSpeed = 0.5,
   interactive = true,
   fallbackOnMobile = true,
-  fallbackImage = "/rick-logo.svg",
+  fallbackImage = "/images/assets/logos/rick-logo.svg",
 }: Logo3DSTLProps) {
   const [shouldUseFallback, setShouldUseFallback] = React.useState(false);
   const [isClient, setIsClient] = React.useState(false);

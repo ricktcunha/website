@@ -16,6 +16,7 @@ const tabs = [
   { id: "all", label: "TODOS OS TRABALHOS" },
   { id: "websites", label: "WEBSITES" },
   { id: "branding", label: "BRANDING" },
+  { id: "campanhas", label: "CAMPANHAS" },
 ];
 
 export default function TrabalhosPag() {
@@ -36,7 +37,8 @@ export default function TrabalhosPag() {
   const filteredProjects = projects.filter((project) => {
     if (activeTab === "all") return true;
     if (activeTab === "websites") return project.category === "Desenvolvedor Front-End";
-    if (activeTab === "branding") return project.category === "Design de Marcas" || project.category === "Designer Gráfico";
+    if (activeTab === "branding") return project.category === "Design de Marcas";
+    if (activeTab === "campanhas") return project.category === "Campanhas - Postagens" || project.category === "Campanhas - KV's";
     return true;
   });
 

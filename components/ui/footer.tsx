@@ -31,7 +31,7 @@ export function Footer() {
           <div>
             <div className="w-20 h-5 relative mb-4">
               <Image
-                src="/rick-logo.svg"
+                src="/images/assets/logos/rick-logo.svg"
                 alt="Rick Logo"
                 fill
                 className="object-contain object-left"

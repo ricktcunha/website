@@ -55,7 +55,7 @@ export function Navbar() {
         className="hover:opacity-80 transition-opacity cursor-pointer w-20 h-5 relative"
       >
         <Image
-          src="/rick-logo.svg"
+          src="/images/assets/logos/rick-logo.svg"
           alt="Rick Logo"
           fill
           className="object-contain object-left"

@@ -6,6 +6,15 @@ import { cn } from "@/lib/utils";
 
 type Direction = "TOP" | "LEFT" | "BOTTOM" | "RIGHT";
 
+interface HoverBorderGradientProps extends React.HTMLAttributes<HTMLElement> {
+  children: React.ReactNode;
+  as?: React.ElementType;
+  containerClassName?: string;
+  className?: string;
+  duration?: number;
+  clockwise?: boolean;
+}
+
 export function HoverBorderGradient({
   children,
   containerClassName,
@@ -14,15 +23,7 @@ export function HoverBorderGradient({
   duration = 1,
   clockwise = true,
   ...props
-}: React.PropsWithChildren<
-  {
-    as?: React.ElementType;
-    containerClassName?: string;
-    className?: string;
-    duration?: number;
-    clockwise?: boolean;
-  } & React.HTMLAttributes<HTMLElement>
->) {
+}: HoverBorderGradientProps) {
   const [hovered, setHovered] = useState<boolean>(false);
   const [direction, setDirection] = useState<Direction>("TOP");
 
@@ -54,19 +55,22 @@ export function HoverBorderGradient({
       }, duration * 1000);
       return () => clearInterval(interval);
     }
-  }, [hovered]);
-  return (
-    <Tag
-      onMouseEnter={(event: React.MouseEvent<HTMLDivElement>) => {
+  }, [hovered, duration, clockwise]);
+  
+  return React.createElement(
+    Tag as any,
+    {
+      onMouseEnter: (event: React.MouseEvent<HTMLDivElement>) => {
         setHovered(true);
-      }}
-      onMouseLeave={() => setHovered(false)}
-      className={cn(
+      },
+      onMouseLeave: () => setHovered(false),
+      className: cn(
         "relative flex rounded-full border  content-center bg-black/20 hover:bg-black/10 transition-all duration-500 items-center flex-col flex-nowrap gap-10 h-min justify-center overflow-visible p-px decoration-clone w-fit",
         containerClassName
-      )}
-      {...props}
-    >
+      ),
+      ...props,
+    },
+    <>
       <div
         className={cn(
           "w-auto text-white z-10 bg-black px-4 py-2 rounded-[inherit]",
@@ -94,7 +98,7 @@ export function HoverBorderGradient({
         transition={{ ease: "linear", duration: duration ?? 1 }}
       />
       <div className="bg-black absolute z-1 flex-none inset-[2px] rounded-[100px]" />
-    </Tag>
+    </>
   );
 }
 

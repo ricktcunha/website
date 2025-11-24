@@ -26,7 +26,8 @@ export default async function ProjetoPage({ params }: { params: Promise<{ slug: 
 
   const isDesignProject =
     project.category === "Design de Marcas" ||
-    project.category === "Designer Gráfico";
+    project.category === "Campanhas - Postagens" ||
+    project.category === "Campanhas - KV's";
 
   return (
     <>

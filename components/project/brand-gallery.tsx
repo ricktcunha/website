@@ -8,9 +8,10 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 interface BrandGalleryProps {
   images: string[];
   title: string;
+  category?: "Design de Marcas" | "Campanhas - Postagens" | "Campanhas - KV's";
 }
 
-export function BrandGallery({ images, title }: BrandGalleryProps) {
+export function BrandGallery({ images, title, category }: BrandGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [validImages, setValidImages] = useState<string[]>(images);
@@ -76,9 +77,87 @@ export function BrandGallery({ images, title }: BrandGalleryProps) {
           <p className="text-zinc-500">Nenhuma imagem encontrada para este projeto.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className={`grid gap-6 ${
+          category === "Campanhas - KV's" 
+            ? "grid-cols-1" 
+            : category === "Campanhas - Postagens"
+            ? "grid-cols-1 md:grid-cols-2"
+            : "grid-cols-1 md:grid-cols-2"
+        }`}>
           {validImages.map((image, index) => {
-            // Alternate between full-width and half-width
+            // Para KV's: 1 coluna (full width), sem alternância
+            if (category === "Campanhas - KV's") {
+              return (
+                <motion.div
+                  key={image}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="relative group cursor-pointer overflow-hidden rounded-xl aspect-[16/9]"
+                  onClick={() => openLightbox(index)}
+                >
+                  <Image
+                    src={image}
+                    alt={`${title} - Imagem ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="100vw"
+                    onError={() => handleImageError(image)}
+                    unoptimized={image.endsWith('.svg')}
+                  />
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            }
+
+            // Para Postagens: 2 colunas uniformes (todas as imagens ocupam 1 coluna)
+            if (category === "Campanhas - Postagens") {
+              return (
+                <motion.div
+                  key={image}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="relative group cursor-pointer overflow-hidden rounded-xl aspect-square"
+                  onClick={() => openLightbox(index)}
+                >
+                  <Image
+                    src={image}
+                    alt={`${title} - Imagem ${index + 1}`}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    onError={() => handleImageError(image)}
+                    unoptimized={image.endsWith('.svg')}
+                  />
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            }
+
+            // Para Design de Marcas: layout bento box (alternância)
             const isFullWidth = index % 3 === 0;
 
             return (

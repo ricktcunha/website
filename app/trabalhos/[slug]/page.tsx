@@ -76,7 +76,11 @@ export default async function ProjetoPage({ params }: { params: Promise<{ slug: 
         {/* Conditional Content */}
         <div className="mt-16">
           {isDesignProject && project.images ? (
-            <BrandGallery images={project.images} title={project.title} />
+            <BrandGallery 
+              images={project.images} 
+              title={project.title}
+              category={project.category as "Design de Marcas" | "Campanhas - Postagens" | "Campanhas - KV's"}
+            />
           ) : project.siteUrl && project.siteImage ? (
             <SitePreview
               siteUrl={project.siteUrl}

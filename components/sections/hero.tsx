@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { SplineBackground } from "@/components/ui/spline-background";
-import { InteractiveLogo } from "@/components/ui/interactive-logo";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
 import { RainbowButton } from "@/components/ui/rainbow-button";
@@ -115,7 +115,7 @@ export function Hero() {
                 </motion.div>
               </div>
 
-              {/* Coluna Direita - Logo Interativo */}
+              {/* Coluna Direita - Logo 2D */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, y: 30, rotate: -5 }}
                 animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
@@ -126,7 +126,16 @@ export function Hero() {
                 }}
                 className="hidden lg:flex justify-center lg:justify-end"
               >
-                <InteractiveLogo />
+                <div className="relative flex items-center justify-center">
+                  <Image
+                    src="/images/assets/logos/rick-logo-vertical.svg"
+                    alt="Logo RICK"
+                    width={450}
+                    height={450}
+                    className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] object-contain"
+                    priority
+                  />
+                </div>
               </motion.div>
 
             </div>

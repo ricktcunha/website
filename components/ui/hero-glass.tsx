@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Logo3D } from "./logo-3d";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
 
@@ -31,10 +31,8 @@ interface HeroGlassProps {
   onCtaPrimaryClick?: () => void;
   /** Callback quando clicar no botão secundário */
   onCtaSecondaryClick?: () => void;
-  /** Habilita o logo 3D (padrão: true) */
-  showLogo3D?: boolean;
-  /** Props adicionais para o Logo3D */
-  logo3DProps?: React.ComponentProps<typeof Logo3D>;
+  /** Habilita o logo 2D (padrão: true) */
+  showLogo?: boolean;
   /** Classe CSS adicional para o container */
   className?: string;
   /** Habilita shapes/partículas animadas no background (padrão: true) */
@@ -114,8 +112,7 @@ export function HeroGlass({
   ctaSecondary = "Ver Portfólio",
   onCtaPrimaryClick,
   onCtaSecondaryClick,
-  showLogo3D = true,
-  logo3DProps,
+  showLogo = true,
   className,
   showAnimatedShapes = true,
   showNoiseOverlay = true,
@@ -278,8 +275,8 @@ export function HeroGlass({
               </motion.div>
             </div>
 
-            {/* Coluna Direita - Logo 3D */}
-            {showLogo3D && (
+            {/* Coluna Direita - Logo 2D */}
+            {showLogo && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, y: 30, rotate: -5 }}
                 animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
@@ -294,7 +291,16 @@ export function HeroGlass({
                   transition: "transform 0.1s ease-out",
                 }}
               >
-                <Logo3D size="auto" {...logo3DProps} />
+                <div className="relative flex items-center justify-center">
+                  <Image
+                    src="/images/assets/logos/rick-logo-vertical.svg"
+                    alt="Logo RICK"
+                    width={450}
+                    height={450}
+                    className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] object-contain"
+                    priority
+                  />
+                </div>
               </motion.div>
             )}
           </div>

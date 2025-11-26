@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { SplineBackground } from "@/components/ui/spline-background";
+import { AnimatedParticles } from "@/components/ui/animated-particles";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ds } from "@/lib/design-tokens";
@@ -12,6 +13,12 @@ export function Hero() {
   return (
     <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
       <SplineBackground />
+      {/* Partículas animadas interativas */}
+      <AnimatedParticles 
+        particleCount={80}
+        mouseInteractionRadius={150}
+        className="z-[5]"
+      />
       <div className="relative z-10 w-full h-full">
         <div className="w-full h-full flex items-center justify-center relative z-20 py-8 md:py-32 min-h-screen max-h-screen overflow-hidden">
           <div className={cn(

@@ -26,7 +26,7 @@ export default function CurriculoPage() {
       <Navbar />
       <main className="min-h-screen bg-black text-white">
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-visible pt-32 pb-20">
+        <section className="relative min-h-screen flex items-center justify-center overflow-visible pt-8 md:pt-32 pb-20">
           <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               {/* Left - Text Content */}

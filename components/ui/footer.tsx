@@ -22,7 +22,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="py-16 px-6 bg-black border-t border-white/5">
+    <footer className="py-16 px-6 bg-black border-t border-white/5 pb-32 md:pb-16">
       <div className={cn("container mx-auto", ds.spacing.containerMaxWidth)}>
 
         <div className="flex flex-col md:flex-row justify-between gap-12">

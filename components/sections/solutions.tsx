@@ -30,7 +30,7 @@ export function Solutions() {
   return (
     <section id="solutions" className="py-24 md:py-32 bg-black/20">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
-        <div className="mb-20">
+        <div className="mb-12 md:mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

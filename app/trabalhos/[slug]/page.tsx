@@ -33,7 +33,7 @@ export default async function ProjetoPage({ params }: { params: Promise<{ slug: 
     <>
       <ScrollToTop />
       <Navbar />
-      <main className="min-h-screen bg-black pt-32 pb-24 px-6">
+      <main className="min-h-screen bg-black pt-8 md:pt-32 pb-24 px-6">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
         {/* Breadcrumb */}
         <Link

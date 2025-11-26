@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/smooth-scroll";
 import { GlassmorphismBar } from "@/components/ui/glassmorphism-bar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { CustomCursor } from "@/components/ui/custom-cursor";
+import { BottomNavbar } from "@/components/ui/bottom-navbar";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
           <SmoothScroll>
             {children}
           </SmoothScroll>
+          <BottomNavbar />
         </ThemeProvider>
       </body>
     </html>

@@ -29,7 +29,7 @@ export function FloatingActions() {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-4">
+    <div className="fixed bottom-32 md:bottom-8 right-8 z-40 md:z-50 flex flex-col gap-4">
       {/* WhatsApp Button - Always Visible */}
       <motion.button
         initial={{ scale: 0, opacity: 0 }}
@@ -63,9 +63,16 @@ export function FloatingActions() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={scrollToTop}
-            className="group relative w-14 h-14 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300"
+            className="group relative w-14 h-14 rounded-full border border-white/20 flex items-center justify-center shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden md:bg-zinc-800 md:hover:bg-zinc-700 md:border-white/10"
+            style={{ 
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(40px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+            }}
           >
-            <ArrowUp className="w-5 h-5 text-white" />
+            {/* Overlay de brilho para mobile */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-transparent pointer-events-none rounded-full md:hidden" />
+            <ArrowUp className="w-5 h-5 text-white relative z-10" />
 
             {/* Tooltip */}
             <div className="absolute right-full mr-3 px-3 py-2 bg-zinc-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">

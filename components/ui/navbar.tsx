@@ -5,12 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { MobileMenu } from "./mobile-menu";
-import { Menu } from "lucide-react";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +42,7 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
-        "fixed top-[2px] left-0 right-0 z-40 flex items-center justify-between px-6 md:px-12 lg:px-24 py-8 transition-all duration-500",
+        "hidden md:flex fixed top-[2px] left-0 right-0 z-40 items-center justify-between px-6 md:px-12 lg:px-24 py-8 transition-all duration-500",
         scrolled ? "bg-black/80 backdrop-blur-xl py-6" : "bg-transparent"
       )}
     >
@@ -100,17 +97,7 @@ export function Navbar() {
         ))}
       </nav>
 
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setMobileMenuOpen(true)}
-        className="md:hidden p-2 rounded-full hover:bg-white/5 transition-colors duration-300 text-zinc-400 hover:text-white"
-        aria-label="Abrir menu"
-      >
-        <Menu size={24} strokeWidth={1.5} />
-      </button>
-
-      {/* Mobile Menu */}
-      <MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+      {/* Mobile Menu Button - Removido, substituído por BottomNavbar */}
     </motion.header>
   );
 }

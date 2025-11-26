@@ -20,22 +20,40 @@ export function Hero() {
         className="z-[5]"
       />
       <div className="relative z-10 w-full h-full">
-        <div className="w-full h-full flex items-center justify-center relative z-20 py-8 md:py-32 min-h-screen max-h-screen overflow-hidden">
+        <div className="w-full h-full flex items-center justify-center relative z-20 pt-0 pb-2 md:py-32 min-h-screen max-h-screen overflow-hidden">
           <div className={cn(
             "container mx-auto px-6 w-full",
             ds.spacing.containerMaxWidth
           )}>
+            {/* Logo no topo - Mobile */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="flex md:hidden justify-center mb-4 pt-1"
+            >
+              <div className="w-24 h-6 relative">
+                <Image
+                  src="/images/assets/logos/rick-logo.svg"
+                  alt="Rick Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </motion.div>
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-16 lg:gap-24 items-center relative z-20">
 
               {/* Coluna Esquerda - Conteúdo */}
-              <div className="max-w-3xl">
+              <div className="max-w-3xl mx-auto md:mx-0 text-center md:text-left">
 
                 {/* Badge de Status */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6 md:mb-16"
+                  className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-4 md:mb-16"
                 >
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -60,9 +78,9 @@ export function Hero() {
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                  className="mb-4 md:mb-12"
+                  className="mb-3 md:mb-12"
                 >
-                  <h1 className="text-[12vw] sm:text-[11vw] md:text-[8.5vw] lg:text-[7rem] font-extralight leading-[0.85] tracking-tighter mb-2 md:mb-4 text-left">
+                  <h1 className="text-[12vw] sm:text-[11vw] md:text-[8.5vw] lg:text-[7rem] font-extralight leading-[0.85] tracking-tighter mb-2 md:mb-4">
                     <span className="block text-white">Alquimista</span>
                     <span className="block text-zinc-500 italic font-serif font-light">Digital</span>
                   </h1>
@@ -73,9 +91,9 @@ export function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="mb-3 md:mb-6 max-w-3xl"
+                  className="mb-2 md:mb-6 max-w-3xl"
                 >
-                  <p className="text-sm md:text-xl lg:text-2xl text-zinc-400 font-extralight leading-relaxed text-left tracking-tight">
+                  <p className="text-sm md:text-xl lg:text-2xl text-zinc-400 font-extralight leading-relaxed tracking-tight">
                     Transformando ideias complexas em interfaces fluidas e experiências digitais imersivas.
                   </p>
                 </motion.div>
@@ -85,9 +103,9 @@ export function Hero() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="mb-6 md:mb-16"
+                  className="mb-4 md:mb-16"
                 >
-                  <p className="text-xs md:text-base lg:text-lg text-zinc-600 font-light text-left">
+                  <p className="text-xs md:text-base lg:text-lg text-zinc-600 font-light">
                     Design estratégico + Engenharia de alta performance.
                   </p>
                 </motion.div>

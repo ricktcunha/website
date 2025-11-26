@@ -39,7 +39,7 @@ export function Portfolio() {
     <section id="portfolio" className="py-32 bg-black text-white">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
         {/* Header with Tabs */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-20 gap-8">
           <div>
             <motion.span
               initial={{ opacity: 0, y: 20 }}

@@ -49,7 +49,7 @@ export function Skills() {
   return (
     <section id="skills" className="py-32 md:py-40 relative overflow-hidden bg-black/50">
 
-      <div className={cn("container mx-auto px-6 mb-20", ds.spacing.containerMaxWidth)}>
+      <div className={cn("container mx-auto px-6 mb-12 md:mb-20", ds.spacing.containerMaxWidth)}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

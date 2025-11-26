@@ -45,19 +45,19 @@ export default function TrabalhosPag() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-black text-white pt-32 pb-24">
+      <main className="min-h-screen bg-black text-white pt-8 md:pt-32 pb-24">
       <div className={cn("container mx-auto px-6", ds.spacing.containerMaxWidth)}>
         {/* Header */}
-        <div className="mb-20">
+        <div className="mb-12 md:mb-20">
           <Link
             href="/#portfolio"
-            className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-12 group"
+            className="inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors mb-8 md:mb-12 group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Voltar ao Início
           </Link>
 
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+          <div className="flex flex-col gap-8 md:flex-row md:justify-between md:items-end">
             <div>
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
@@ -86,23 +86,26 @@ export default function TrabalhosPag() {
               </motion.p>
             </div>
 
-            <div className="flex gap-4 md:gap-8 mb-2 flex-wrap">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`text-xs font-medium tracking-widest uppercase transition-colors relative pb-2 ${activeTab === tab.id ? "text-white" : "text-zinc-600 hover:text-zinc-400"
-                    }`}
-                >
-                  {tab.label}
-                  {activeTab === tab.id && (
-                    <motion.div
-                      layoutId="activeTab"
-                      className="absolute bottom-0 left-0 w-full h-[1px] bg-white"
-                    />
-                  )}
-                </button>
-              ))}
+            {/* Tabs com scroll horizontal no mobile */}
+            <div className="w-full md:w-auto overflow-x-auto -mx-6 px-6 md:overflow-visible md:mx-0 md:px-0 scrollbar-hide">
+              <div className="flex gap-4 md:gap-8 min-w-max md:min-w-0 pb-1 md:pb-2">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`text-xs font-medium tracking-widest uppercase transition-colors relative pb-2 whitespace-nowrap ${activeTab === tab.id ? "text-white" : "text-zinc-600 hover:text-zinc-400"
+                      }`}
+                  >
+                    {tab.label}
+                    {activeTab === tab.id && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute bottom-0 left-0 w-full h-[1px] bg-white"
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-12">
 
           {/* Left: Logo */}
-          <div>
+          <Link href="/" className="hover:opacity-80 transition-opacity">
             <div className="w-20 h-5 relative mb-4">
               <Image
                 src="/images/assets/logos/rick-logo.svg"
@@ -37,7 +37,7 @@ export function Footer() {
                 className="object-contain object-left"
               />
             </div>
-          </div>
+          </Link>
 
           {/* Center: Links */}
           <nav className="flex flex-col md:flex-row gap-6 md:gap-12">

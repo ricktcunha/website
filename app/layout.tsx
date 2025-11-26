@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { GlassmorphismBar } from "@/components/ui/glassmorphism-bar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <CustomCursor />
           <GlassmorphismBar />
           <SmoothScroll>
             {children}

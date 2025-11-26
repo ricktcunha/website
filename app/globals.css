@@ -105,6 +105,11 @@
     @apply bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary-foreground;
   }
 
+  /* Remover cursor padrão (incluindo pointer) de todos os elementos */
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+
   /* Global Typography Reset for "Delicate" feel */
   h1,
   h2,
